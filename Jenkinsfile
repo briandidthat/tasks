@@ -4,19 +4,19 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn -DskipTests clean compile'
+                sh './mvnw -DskipTests clean compile'
             }
         }
 
         stage('test') {
             steps {
-                sh 'mvn test'
+                sh './mvnw test'
             }
         }
 
         stage('deliver') {
             steps {
-                sh 'mvn -DskipTests install'
+                sh './mvnw -DskipTests install'
             }
         }
     }
