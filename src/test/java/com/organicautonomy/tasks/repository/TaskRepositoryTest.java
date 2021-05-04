@@ -10,6 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +34,14 @@ class TaskRepositoryTest {
         task2.setValue("Walk the dogs.");
         task2.setSubmissionDate(LocalDate.of(2021, 4, 3));
         task2.setDueDate(LocalDate.of(2021,4,4));
+    }
+
+    @Test
+    void saveFindTask() {
+        task1 = repository.save(task1);
+
+        Optional<Task> fromRepository = repository.findById(task1.getId());
+        assertEquals(task1, fromRepository.get());
     }
 
     @Test
