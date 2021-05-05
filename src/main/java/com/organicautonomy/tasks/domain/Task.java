@@ -3,8 +3,8 @@ package com.organicautonomy.tasks.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,16 +16,16 @@ public class Task {
     private long id;
     private String value;
     private LocalDate submissionDate;
-    private LocalDate dueDate;
-    private Time dueTime;
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime dueDate;
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    public Task(String value, LocalDate submissionDate, LocalDate dueDate, Time dueTime, TaskStatus status) {
+
+    public Task(String value, LocalDate submissionDate, LocalDateTime dueDate, TaskStatus status) {
         this.value = value;
         this.submissionDate = submissionDate;
         this.dueDate = dueDate;
-        this.dueTime = dueTime;
         this.status = status;
     }
 }

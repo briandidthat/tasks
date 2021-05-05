@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,11 @@ class TaskRepositoryTest {
     void setUp() {
         repository.deleteAll();
 
-        task1 = new Task("Take out the trash.", LocalDate.of(2021, 4, 3),
-                LocalDate.of(2021, 4, 4), Time.valueOf("3:30:00"), TaskStatus.OPEN);
+        task1 = new Task("do the dishes", LocalDate.of(2021,4,2),
+                LocalDateTime.of(LocalDate.of(2021, 4, 4), LocalTime.of(3,30)), TaskStatus.OPEN);
 
-        task2 = new Task("Walk the dogs.", LocalDate.of(2021, 4, 3),
-                LocalDate.of(2021, 4, 4), Time.valueOf("1:30:00"), TaskStatus.OPEN);
+        task2 = new Task("Walk the dogs.", LocalDate.of(2021, 4, 2),
+                LocalDateTime.of(LocalDate.of(2021, 4, 4), LocalTime.of(3,30)), TaskStatus.OPEN);
 
     }
 
@@ -44,30 +45,23 @@ class TaskRepositoryTest {
     }
 
     @Test
-    void findTasksByDueDate() {
-        task1 = repository.save(task1);
-        task2 = repository.save(task2);
-
-        List<Task> tasks = repository.findTasksByDueDate(LocalDate.of(2021, 4, 4));
-        assertEquals(2, tasks.size());
-    }
-
-    @Test
     void findTasksBySubmissionDate() {
         task1 = repository.save(task1);
         task2 = repository.save(task2);
 
-        List<Task> tasks = repository.findTasksBySubmissionDate(LocalDate.of(2021, 4, 3));
+        List<Task> tasks = repository.findTasksBySubmissionDate(LocalDate.of(2021, 4, 2));
         assertEquals(2, tasks.size());
     }
 
     @Test
-    void findTasksByDueTime() {
+    void findTasksByDueDate() {
         task1 = repository.save(task1);
+        task2 = repository.save(task2);
 
-        List<Task> tasks = repository.findTasksByDueTime(Time.valueOf("3:30:00"));
-        assertEquals(1, tasks.size());
+        List<Task> tasks = repository.findTasksByDueDate(task1.getDueDate());
+        assertEquals(2, tasks.size());
     }
+
 
     @Test
     void findTasksByStatus() {

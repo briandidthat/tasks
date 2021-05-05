@@ -10,18 +10,20 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskServiceTest {
-    private final Task TO_SAVE = new Task(0,"do the dishes", LocalDate.of(2021,4,5),
-            LocalDate.of(2021,4,6), Time.valueOf("3:30:00"), TaskStatus.OPEN);
-    private final Task TASK_1 = new Task(1,"do the dishes", LocalDate.of(2021,4,5),
-            LocalDate.of(2021,4,6), Time.valueOf("3:30:00"), TaskStatus.OPEN);
-    private final Task TASK_2 = new Task(0,"do the dishes", LocalDate.of(2021,4,3),
-            LocalDate.of(2021,4,7), Time.valueOf("5:30:00"), TaskStatus.OPEN);
-    private final Task TASK_3 = new Task(0,"do the dishes", LocalDate.of(2021,4,3),
-            LocalDate.of(2021,4,7), Time.valueOf("1:00:00"), TaskStatus.OPEN);
+    private final Task TO_SAVE = new Task(0,"do the dishes", LocalDate.of(2021,4,2),
+            LocalDateTime.of(LocalDate.of(2021, 4, 4), LocalTime.of(3,30)), TaskStatus.OPEN);
+    private final Task TASK_1 = new Task(1,"do the dishes", LocalDate.of(2021,4,2),
+            LocalDateTime.of(LocalDate.of(2021, 4, 4), LocalTime.of(3,30)), TaskStatus.OPEN);
+    private final Task TASK_2 = new Task(2,"walk the dog", LocalDate.of(2021,4,3),
+            LocalDateTime.of(LocalDate.of(2021, 4, 5), LocalTime.of(1,30)), TaskStatus.OPEN);
+    private final Task TASK_3 = new Task(3,"clean the house", LocalDate.of(2021,4,3),
+            LocalDateTime.of(LocalDate.of(2021, 4, 7), LocalTime.of(4,30)), TaskStatus.OPEN);
 
     @MockBean
     private TaskRepository repository;

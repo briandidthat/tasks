@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class TaskService {
         return tasks;
     }
 
-    public List<Task> findTaskByDueDate(LocalDate dueDate) {
+    public List<Task> findTaskByDueDate(LocalDateTime dueDate) {
         List<Task> tasks = repository.findTasksByDueDate(dueDate);
 
         if (tasks.size() == 0) {
@@ -56,15 +57,15 @@ public class TaskService {
         return tasks;
     }
 
-    public List<Task> findTaskByDueTime(Time dueTime) {
-        List<Task> tasks = repository.findTasksByDueTime(dueTime);
-
-        if (tasks.size() == 0) {
-            return null;
-        }
-
-        return tasks;
-    }
+//    public List<Task> findTaskByDueTime(Time dueTime) {
+//        List<Task> tasks = repository.findTasksByDueTime(dueTime);
+//
+//        if (tasks.size() == 0) {
+//            return null;
+//        }
+//
+//        return tasks;
+//    }
 
     public List<Task> findTasksByStatus(TaskStatus status) {
         List<Task> tasks = repository.findTasksByStatus(status);
