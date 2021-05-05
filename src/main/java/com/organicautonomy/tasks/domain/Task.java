@@ -2,10 +2,8 @@ package com.organicautonomy.tasks.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
 
 @Data
@@ -19,4 +17,15 @@ public class Task {
     private String value;
     private LocalDate submissionDate;
     private LocalDate dueDate;
+    private Time dueTime;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+
+    public Task(String value, LocalDate submissionDate, LocalDate dueDate, Time dueTime, TaskStatus status) {
+        this.value = value;
+        this.submissionDate = submissionDate;
+        this.dueDate = dueDate;
+        this.dueTime = dueTime;
+        this.status = status;
+    }
 }
