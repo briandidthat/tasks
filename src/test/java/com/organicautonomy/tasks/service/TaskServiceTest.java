@@ -99,6 +99,18 @@ class TaskServiceTest {
     }
 
     @Test
+    void findTasksByStatus() {
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(TASK_2);
+        tasks.add(TASK_3);
+
+        when(repository.findTasksByStatus(TaskStatus.OPEN)).thenReturn(tasks);
+
+        List<Task> fromService = service.findTasksByStatus(TaskStatus.OPEN);
+        assertEquals(2, fromService.size());
+    }
+
+    @Test
     void deleteTask() {
         when(repository.findById(1L)).thenReturn(Optional.of(TASK_1));
         doNothing().when(repository).delete(TASK_1);
