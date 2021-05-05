@@ -6,7 +6,6 @@ import com.organicautonomy.tasks.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +15,10 @@ import java.util.Optional;
 public class TaskService {
     @Autowired
     private TaskRepository repository;
+
+    public Task saveTask(Task task) {
+        return repository.save(task);
+    }
 
     public Task findTaskById(Long id) {
         Optional<Task> task = repository.findById(id);
@@ -56,16 +59,6 @@ public class TaskService {
 
         return tasks;
     }
-
-//    public List<Task> findTaskByDueTime(Time dueTime) {
-//        List<Task> tasks = repository.findTasksByDueTime(dueTime);
-//
-//        if (tasks.size() == 0) {
-//            return null;
-//        }
-//
-//        return tasks;
-//    }
 
     public List<Task> findTasksByStatus(TaskStatus status) {
         List<Task> tasks = repository.findTasksByStatus(status);
