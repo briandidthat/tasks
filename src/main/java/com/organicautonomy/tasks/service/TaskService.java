@@ -1,10 +1,12 @@
 package com.organicautonomy.tasks.service;
 
 import com.organicautonomy.tasks.domain.Task;
+import com.organicautonomy.tasks.domain.TaskStatus;
 import com.organicautonomy.tasks.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +48,26 @@ public class TaskService {
 
     public List<Task> findTaskByDueDate(LocalDate dueDate) {
         List<Task> tasks = repository.findTasksByDueDate(dueDate);
+
+        if (tasks.size() == 0) {
+            return null;
+        }
+
+        return tasks;
+    }
+
+    public List<Task> findTaskByDueTime(Time dueTime) {
+        List<Task> tasks = repository.findTasksByDueTime(dueTime);
+
+        if (tasks.size() == 0) {
+            return null;
+        }
+
+        return tasks;
+    }
+
+    public List<Task> findTasksByStatus(TaskStatus status) {
+        List<Task> tasks = repository.findTasksByStatus(status);
 
         if (tasks.size() == 0) {
             return null;
