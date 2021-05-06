@@ -35,7 +35,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public Task getTaskById(@PathVariable Long id) {
         Task task = service.findTaskById(id);
 
