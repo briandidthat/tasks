@@ -132,6 +132,12 @@ class TaskControllerTest {
     }
 
     @Test
-    void deleteTask() {
+    void deleteTask() throws Exception {
+        when(service.deleteTask(TASK_2.getId())).thenReturn(true);
+
+        this.mockMvc.perform(delete("/tasks/delete/{id}", TASK_2.getId()))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(""))
+                .andDo(print());
     }
 }
