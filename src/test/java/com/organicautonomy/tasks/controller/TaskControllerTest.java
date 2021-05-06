@@ -1,6 +1,5 @@
 package com.organicautonomy.tasks.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.organicautonomy.tasks.domain.Task;
 import com.organicautonomy.tasks.domain.TaskStatus;
@@ -21,8 +20,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -121,8 +119,16 @@ class TaskControllerTest {
     }
 
     @Test
-    void updateTask() {
+    void updateTask() throws Exception {
+        String inputJson = mapper.writeValueAsString(TASK_3);
+        when(service.updateTask(TASK_3.getId(), TASK_3)).thenReturn(true);
 
+        this.mockMvc.perform(put("/tasks/update/{id}", TASK_3.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(inputJson))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(""))
+                .andDo(print());
     }
 
     @Test
