@@ -94,7 +94,7 @@ class TaskServiceTest {
 
         when(repository.findTasksByDueDate(dueDate)).thenReturn(tasks);
 
-        List<Task> fromService = service.findTaskByDueDate(dueDate);
+        List<Task> fromService = service.findTasksByDueDate(dueDate);
         assertEquals(1, fromService.size());
     }
 

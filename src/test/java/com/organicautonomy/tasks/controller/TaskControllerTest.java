@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -94,15 +93,36 @@ class TaskControllerTest {
     }
 
     @Test
-    void getTasksBySubmissionDate() {
+    void getTasksBySubmissionDate() throws Exception {
+        List<Task> tasks = List.of(TASK_2, TASK_3);
+        String outputJson = mapper.writeValueAsString(tasks);
+
+        when(service.findTasksBySubmissionDate(TASK_2.getSubmissionDate())).thenReturn(tasks);
+
+        this.mockMvc.perform(get("/tasks/submission-date/{submissionDate}", TASK_2.getSubmissionDate()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(outputJson))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
-    void getTasksByDueDate() {
+    void getTasksByDueDate() throws Exception {
+        List<Task> tasks = List.of(TASK_2, TASK_3);
+        String outputJson = mapper.writeValueAsString(tasks);
+
+        when(service.findTasksByDueDate(TASK_2.getDueDate())).thenReturn(tasks);
+
+        this.mockMvc.perform(get("/tasks/due-date/{dueDate}", TASK_2.getDueDate()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(outputJson))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
     void updateTask() {
+
     }
 
     @Test
