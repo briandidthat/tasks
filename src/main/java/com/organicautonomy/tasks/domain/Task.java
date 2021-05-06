@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,16 +17,14 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "Value is mandatory")
+    @NotNull(message = "Value is mandatory")
     private String value;
-    @NotBlank(message = "Submission date is mandatory")
-    @PastOrPresent
+    @NotNull(message = "Submission date is mandatory")
     private LocalDate submissionDate;
-    @NotBlank(message = "Due date is mandatory")
+    @NotNull(message = "Due date is mandatory.")
     @Column(columnDefinition = "TIMESTAMP")
-    @Future
     private LocalDateTime dueDate;
-    @NotBlank(message = "Status is mandatory")
+    @NotNull(message = "Status is mandatory")
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 

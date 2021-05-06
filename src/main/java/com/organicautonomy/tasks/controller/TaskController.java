@@ -4,6 +4,7 @@ import com.organicautonomy.tasks.domain.Task;
 import com.organicautonomy.tasks.exception.ResourceNotFoundException;
 import com.organicautonomy.tasks.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public Task getTaskById(@PathVariable Long id) {
         Task task = service.findTaskById(id);
 
@@ -46,18 +47,19 @@ public class TaskController {
 
     @GetMapping("/submission-date/{submissionDate}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Task> getTasksBySubmissionDate(@PathVariable LocalDate submissionDate) {
+    public List<Task> getTasksBySubmissionDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate submissionDate) {
         List<Task> tasks = service.findTasksBySubmissionDate(submissionDate);
 
-        if (tasks == null) throw new ResourceNotFoundException("There were no tasks submitted on: " + submissionDate.toString());
+        if (tasks == null)
+            throw new ResourceNotFoundException("There were no tasks submitted on: " + submissionDate.toString());
 
         return tasks;
     }
 
     @GetMapping("/due-date/{dueDate}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Task> getTasksByDueDate(@PathVariable LocalDateTime dueDate) {
-        List<Task> tasks = service.findTaskByDueDate(dueDate);
+    public List<Task> getTasksByDueDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDate) {
+        List<Task> tasks = service.findTasksByDueDate(dueDate);
 
         if (tasks == null) throw new ResourceNotFoundException("There are no tasks due on: " + dueDate.toString());
 

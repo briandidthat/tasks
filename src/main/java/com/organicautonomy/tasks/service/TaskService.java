@@ -50,7 +50,7 @@ public class TaskService {
         return tasks;
     }
 
-    public List<Task> findTaskByDueDate(LocalDateTime dueDate) {
+    public List<Task> findTasksByDueDate(LocalDateTime dueDate) {
         List<Task> tasks = repository.findTasksByDueDate(dueDate);
 
         if (tasks.size() == 0) {
